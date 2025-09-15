@@ -20,7 +20,10 @@ mypy:
 	@uv run mypy scanapi
 
 .PHONY: check
-check: ruff-check ruff-format-check mypy
+check: ruff-check mypy
+
+.PHONY: check-format
+check-format: ruff-format-check
 
 .PHONY: change-version
 change-version:
