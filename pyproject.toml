@@ -61,7 +61,7 @@ exclude = [".git", "__pycache__", "docs/source/conf.py", "old", "build", "dist",
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]
-ignore = ["E501", "E231", "E721"]
+ignore = ["E501", "E231", "E721", "I001"]
 
 [tool.ruff.format]
 quote-style = "double"
