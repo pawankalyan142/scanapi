@@ -4,15 +4,15 @@ timestamp = `date -u +'%Y%m%d%H%M%S'`
 test:
 	@uv run pytest --cov=./scanapi --cov-report=xml
 
-.PHONY: black
-black:
-	@echo "running black"
-	@uv run black -l 80 --check . --exclude=.venv
+.PHONY: ruff-check
+ruff-check:
+	@echo "running ruff check"
+	@uv run ruff check
 
-.PHONY: flake8
-flake8:
-	@echo "running flake8"
-	@uv run flake8 --ignore=E501,W501,E231,W503 --exclude=.git,__pycache__,docs/source/conf.py,old,build,dist,.venv
+.PHONY: ruff-format-check
+ruff-format-check:
+	@echo "running ruff format check"
+	@uv run ruff format --check
 
 .PHONY: mypy
 mypy:
@@ -20,7 +20,7 @@ mypy:
 	@uv run mypy scanapi
 
 .PHONY: check
-check: black flake8 mypy
+check: ruff-check ruff-format-check mypy
 
 .PHONY: change-version
 change-version:
@@ -32,7 +32,8 @@ change-version:
 
 .PHONY: format
 format:
-	@uv run black -l 80 . --exclude=.venv
+	@uv run ruff format
+	@uv run ruff check --fix
 
 .PHONY: install
 install:
@@ -51,4 +52,3 @@ run:
 .PHONY: bandit
 bandit:
 	@uv run bandit -r scanapi
-
